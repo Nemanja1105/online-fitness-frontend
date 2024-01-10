@@ -1,0 +1,39 @@
+<div class="login-container">
+    <h1>Login</h1>
+    <h1>Login</h1>
+    <form #form="ngForm" [formGroup]="loginForm" class="form">
+        <div class="card mt-3">
+            <div class="card-body">
+
+                <div class="form-floating">
+                    <input id="email" type="email" formControlName="email" class="form-control form-control-lg"
+                        [ngClass]="{ 'is-invalid': form.submitted && controls['email'].invalid }">
+                    <label for="email">Email</label>
+                    <div *ngIf="form.submitted && controls['email'].invalid" class="text-danger">
+                        <div *ngIf="controls['email'].errors?.['required']">Email is required.</div>
+                        <div *ngIf="controls['email'].errors?.['email']">Email is invalid.</div>
+                    </div>
+                </div>
+
+
+                <label for="password">Password</label>
+                <input id="password" type="password" formControlName="password" class="form-control"
+                    [ngClass]="{ 'is-invalid': form.submitted && controls['password'].invalid }">
+                <div *ngIf="form.submitted && controls['password'].invalid" class="text-danger">
+                    <small *ngIf="controls['password'].errors?.['required']">Password is required.</small>
+                </div>
+
+
+                <button type="submit" class="btn btn-success">Login</button>
+
+            </div>
+        </div>
+    </form>
+
+    <div class="form-floating">
+        <input required type="text" class="form-control form-control-lg" id="typeEmailX" placeholder="name@example.com"
+            name="username"> <label for="typeEmailX">Username</label>
+        <div class="invalid-feedback">Please enter a username.</div>
+    </div>
+
+</div>
