@@ -1,4 +1,14 @@
 .login-container{
-    background: radial-gradient(circle at 10% 20%, rgba(91, 173, 254, 0.46) 0%, rgba(91, 224, 254, 0.46) 47.2%, rgba(170, 254, 235, 0.43) 90%);
+   
     height: 100vh;
+   background-image: url("../../assets/pxfuel.jpg");
+   background-size: cover;
+   background-repeat: no-repeat;
+   background-attachment: fixed;
+   background-position: center;
+}
+
+.form-check input[type="checkbox"]{
+    width:20px;
+    height: 20px;
 }
