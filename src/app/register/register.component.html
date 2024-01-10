@@ -12,38 +12,107 @@
                         <mat-stepper linear #stepper class="mt-4">
                             <mat-step editable>
                                 <ng-template matStepLabel class="fw-semibold">Step 1</ng-template>
-                                <form [formGroup]="profileForm" class="mt-2">
-                                    <label for="usernameInput" class="fw-semibold">Username</label>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="addon-wrapping"><img
-                                                src="../../assets/userIcon.png" /></span>
-                                        <input formControlName="username" type="text" class="form-control "
-                                            id="usernameInput" placeholder="Your username" name="username">
+                                <form #form="ngForm" [formGroup]="profileForm" class="mt-2">
+                                    <div class="mb-3">
+                                        <label for="usernameInput" class="fw-semibold">Username<span style="color:red">
+                                                *</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="addon-wrapping"><img
+                                                    src="../../assets/userIcon.png" /></span>
+                                            <input formControlName="username" type="text" class="form-control "
+                                                id="usernameInput" placeholder="Your username" name="username"
+                                                (blur)="onBlurUsername()"
+                                                [ngClass]="{ 'is-invalid': (username.dirty || username.touched) && (username.invalid  || !usernameValid) }" />
+                                        </div>
+                                        @if((username.invalid || !usernameValid) && (username.dirty ||
+                                        username.touched)){
+                                        <div class="text-danger">
+                                            @if(!usernameValid)
+                                            {
+                                            Username is already taken!
+                                            }
+                                            @else if(username.errors?.['required']){
+                                            Username is required!
+                                            }
+                                        </div>
+                                        }
                                     </div>
 
-
-                                    <label for="passwordInput" class="fw-semibold">Password</label>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="addon-wrapping"><img
-                                                src="../../assets/passwordIcon.png" /></span>
-                                        <input formControlName="password" type="password" class="form-control"
-                                            id="passwordInput" placeholder="Your password" name="password">
+                                    <div class="mb-3">
+                                        <label for="passwordInput" class="fw-semibold">Password<span style="color:red">
+                                                *</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="addon-wrapping"><img
+                                                    src="../../assets/passwordIcon.png" /></span>
+                                            <input formControlName="password" type="password" class="form-control"
+                                                id="passwordInput" placeholder="Your password" name="password"
+                                                (blur)="onBlur(password)"
+                                                [ngClass]="{ 'is-invalid': (password.dirty || password.touched) && password.invalid }">
+                                        </div>
+                                        @if(password.invalid && (password.dirty || password.touched)){
+                                        <div class="text-danger">
+                                            @if(password.errors?.['pattern'])
+                                            {
+                                            Password requires minimum 8 characters with at least one number and one
+                                            uppercase letter!
+                                            }
+                                            @else if(password.errors?.['required']){
+                                            Password is required!
+                                            }
+                                        </div>
+                                        }
                                     </div>
 
-                                    <label for="passwordRepeatInput" class="fw-semibold">Repeat password</label>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="addon-wrapping"><img
-                                                src="../../assets/passwordIcon.png" /></span>
-                                        <input formControlName="repeatPassword" type="password" class="form-control"
-                                            id="passwordRepeatInput" placeholder="Repeat password"
-                                            name="repeatPassword">
+                                    <div class="mb-3">
+                                        <label for="passwordRepeatInput" class="fw-semibold">Repeat password<span
+                                                style="color:red">
+                                                *</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="addon-wrapping"><img
+                                                    src="../../assets/passwordIcon.png" /></span>
+                                            <input formControlName="repeatPassword" type="password" class="form-control"
+                                                id="passwordRepeatInput" placeholder="Repeat password"
+                                                name="repeatPassword" (blur)="onBlur(repeatPassword)"
+                                                [ngClass]="{ 'is-invalid': (repeatPassword.dirty || repeatPassword.touched) && repeatPassword.invalid }">
+                                        </div>
+                                        @if(repeatPassword.invalid && (repeatPassword.dirty || repeatPassword.touched)){
+                                        <div class="text-danger">
+                                            @if(repeatPassword.errors?.['pattern'])
+                                            {
+                                            Password requires minimum 8 characters with at least one number and one
+                                            uppercase letter!
+                                            }
+                                            @else if(repeatPassword.errors?.['required']){
+                                            Password is required!
+                                            }
+                                        </div>
+                                        }
                                     </div>
-                                    <label for="emailInput" class="fw-semibold">Email</label>
-                                    <div class="input-group mb-4">
-                                        <span class="input-group-text" id="addon-wrapping"><img
-                                                src="../../assets/emailIcon.png" /></span>
-                                        <input formControlName="email" type="email" class="form-control" id="emailInput"
-                                            placeholder="Email" name="email">
+                                    <div class="mb-4">
+                                        <label for="emailInput" class="fw-semibold">Email<span style="color:red">
+                                                *</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="addon-wrapping"><img
+                                                    src="../../assets/emailIcon.png" /></span>
+                                            <input formControlName="email" type="email" class="form-control"
+                                                id="emailInput" placeholder="Email" name="email" (blur)="onBlurEmail()"
+                                                [ngClass]="{ 'is-invalid': (email.dirty || email.touched) && (email.invalid || !emailValid) }">
+                                        </div>
+                                        @if((email.invalid || !emailValid) && (email.dirty || email.touched)){
+                                        <div class="text-danger">
+                                            @if(!emailValid){
+                                            Email is already taken!
+                                            }
+                                            @else if(email.errors?.['email'])
+                                            {
+                                            Invalid email format!
+                                            }
+                                            @else if(email.errors?.['required']){
+                                            Email is required!
+                                            }
+
+                                        </div>
+                                        }
                                     </div>
                                 </form>
                                 <div class="d-flex justify-content-center">
@@ -55,35 +124,66 @@
                             <mat-step editable>
                                 <ng-template matStepLabel class="fw-semibold">Step 2</ng-template>
                                 <form [formGroup]="profileForm" class="mt-2">
-                                    <label for="nameInput" class="fw-semibold">Name</label>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="addon-wrapping"><img
-                                                src="../../assets/nameIcon.png" /></span>
-                                        <input formControlName="name" type="text" class="form-control " id="nameInput"
-                                            placeholder="Your name" name="name">
+                                    <div class="mb-3">
+                                        <label for="nameInput" class="fw-semibold">Name<span style="color:red">
+                                                *</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="addon-wrapping"><img
+                                                    src="../../assets/nameIcon.png" /></span>
+                                            <input formControlName="name" type="text" class="form-control "
+                                                id="nameInput" placeholder="Your name" name="name" (blur)="onBlur(name)"
+                                                [ngClass]="{ 'is-invalid': (name.dirty || name.touched) && name.invalid }">
+                                        </div>
+                                        @if(name.invalid && (name.dirty || name.touched)){
+                                        <div class="text-danger">
+                                            Name is required!
+                                        </div>
+                                        }
                                     </div>
-                                    <label for="surnameInput" class="fw-semibold">Surname</label>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="addon-wrapping"><img
-                                                src="../../assets/surnameIcon.png" /></span>
-                                        <input formControlName="surname" type="text" class="form-control "
-                                            id="surnameInput" placeholder="Your surname" name="surname">
+                                    <div class="mb-3">
+                                        <label for="surnameInput" class="fw-semibold">Surname<span style="color:red">
+                                                *</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="addon-wrapping"><img
+                                                    src="../../assets/surnameIcon.png" /></span>
+                                            <input formControlName="surname" type="text" class="form-control "
+                                                id="surnameInput" placeholder="Your surname" name="surname"
+                                                (blur)="onBlur(surname)"
+                                                [ngClass]="{ 'is-invalid': (surname.dirty || surname.touched) && surname.invalid }">
+                                        </div>
+                                        @if(surname.invalid && (surname.dirty || surname.touched)){
+                                        <div class="text-danger">
+                                            Surname is required!
+                                        </div>
+                                        }
                                     </div>
-                                    <label for="cityInput" class="fw-semibold">City</label>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="addon-wrapping"><img
-                                                src="../../assets/cityIcon.png" /></span>
-                                        <input formControlName="city" type="text" class="form-control " id="cityInput"
-                                            placeholder="Your city name" name="city">
+                                    <div class="mb-3">
+                                        <label for="cityInput" class="fw-semibold">City<span style="color:red">
+                                                *</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="addon-wrapping"><img
+                                                    src="../../assets/cityIcon.png" /></span>
+                                            <input formControlName="city" type="text" class="form-control "
+                                                id="cityInput" placeholder="Your city name" name="city"
+                                                (blur)="onBlur(city)"
+                                                [ngClass]="{ 'is-invalid': (city.dirty || city.touched) && city.invalid }">
+                                        </div>
+                                        @if(city.invalid && (city.dirty || city.touched)){
+                                        <div class="text-danger">
+                                            City is required!
+                                        </div>
+                                        }
+
                                     </div>
                                     <label for="formFile" class="form-label fw-semibold">Profile image</label>
                                     <input formControlName="image" class="form-control" type="file"
-                                        accept="image/png, image/jpeg" id="formFile">
+                                        accept="image/png, image/jpeg" id="formFile" (change)="onFileSelected($event)">
                                 </form>
                                 <div class="mt-4 d-flex justify-content-center gap-3">
                                     <button class="btn btn-outline-primary fs-5 d-flex align-items-center gap-1"
                                         matStepperPrevious>Previous step</button>
-                                    <button [disabled]="!profileForm.valid"
+                                    <button [disabled]="!profileForm.valid || !emailValid || !usernameValid"
+                                        (click)="onSubmit()"
                                         class="btn btn-primary fs-5 d-flex align-items-center gap-1">Create
                                         account</button>
                                 </div>

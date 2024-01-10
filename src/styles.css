@@ -2,3 +2,15 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.snackbar-success {
+    .mdc-snackbar__surface {
+      background-color: #198754 !important;
+    }
+  }
+
+  .snackbar-unsuccess {
+    .mdc-snackbar__surface {
+      background-color: #dc3545 !important;
+    }
+  }
