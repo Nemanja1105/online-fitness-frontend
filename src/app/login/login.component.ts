@@ -87,6 +87,12 @@ export class LoginComponent implements OnInit {
               'close',
               false
             );
+          } else {
+            this.snackBar.openSnackBar(
+              'Error communicating with the server',
+              'close',
+              false
+            );
           }
         },
       });

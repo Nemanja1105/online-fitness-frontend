@@ -1,0 +1,50 @@
+<div class="ccontainer">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#3050c5">
+        <div class="container-fluid">
+
+            <a class=" centerIconText navbar-brand text-light fs-3 fw-bold" routerLink="/home"
+                routerLinkActive="active"><img src="../../assets/fitnessIcon.png"
+                    style="width:56px; height: 56px;" />Online
+                Fitness</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class=" offcanvas offcanvas-end" style="background-color:rgba(28,131,224,0.9)" tabindex="-1"
+                id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h4 class="offcanvas-title text-light text-center" id="offcanvasNavbarLabel">Menu</h4>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav align-items-center justify-content-end fs-5 fw-semibold flex-grow-1 pe-3">
+                        <li class="nav-item mx-2">
+                            <a class="nav-link active centerIconText" aria-current="page" href="Categories"><img
+                                    src="../../assets/newsIcon.png" />Fitness news</a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link  centerIconText" href="Users"><img
+                                    src="../../assets/jumpIcon.png" />Exercises</a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link centerIconText" href="Users">Programs</a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link centerIconText" href="Users">Progress</a>
+                        </li>
+
+                    </ul>
+                    <div class="d-flex justify-content-center align-items-center fs-5 fw-bold text-light">
+                        <button class="btn btn-warning fw-semibold centerIconText"><img
+                                src="../../assets/getStartedIcon.png" />Get started</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="custom-background  p-md-5 p-2">
+        <router-outlet></router-outlet>
+    </div>
+</div>

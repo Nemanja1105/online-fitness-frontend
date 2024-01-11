@@ -1,0 +1,32 @@
+<div class="d-flex justify-content-center w-100 textImageCenter">
+    <span class="fw-bold font-italic m-0 title">ACE Fit Facts</span>
+    <img src="../../assets/factIcon.png" style="width:48px; height: 48px;">
+</div>
+<div class="container mt-4">
+    <div class="row gy-3">
+        @for(n of news; track $index)
+        {
+        <div class="card p-0 shadow border-0">
+            <div class="card-header fw-semibold text-light fs-4 " style="background-color: #1e90ff">
+                <span>{{n.title}}</span>
+
+            </div>
+            <div class="card-body">
+                <h5 class="card-title fs-5 fw-semibold textImageCenter gap-1">Description<img
+                        src="../../assets/infoIcon.png">
+                </h5>
+                <p class="card-text text-secondary">{{n.description}}</p>
+                <div class="d-flex justify-content-between">
+                    <a target="_blank" [href]="n.link" class="btn btn-outline-primary fw-semibold">
+
+                        Read more
+
+                    </a>
+                    <span class="textImageCenter fw-semibold fs-5">{{n.category}}<img
+                            src="../../assets/categIcon.png" /></span>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
