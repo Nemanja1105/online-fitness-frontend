@@ -15,7 +15,7 @@ import { NgClass } from '@angular/common';
 import { AuthService } from '../services/Auth/auth.service';
 import { ImageService } from '../services/Image/image.service';
 import { CustomSnackBarService } from '../services/CustomSnackBar/custom-snack-bar.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -27,6 +27,8 @@ import { Router } from '@angular/router';
     MatButtonModule,
     ReactiveFormsModule,
     NgClass,
+    RouterLink,
+    RouterLinkActive,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
@@ -153,14 +155,14 @@ export class RegisterComponent {
   registerClient(obj: any) {
     this.authService.register(obj).subscribe({
       next: () => {
-        this.snackBar.openSnackBar('Registracija uspjesna', 'close', true);
+        this.snackBar.openSnackBar('Registration successful', 'close', true);
         setTimeout(() => {
           this.router.navigate(['/login']);
         }, 2000);
       },
       error: () => {
         this.snackBar.openSnackBar(
-          'Desila se greska prilikom komunikacije sa serverom',
+          'Error communicating with the server',
           'close',
           false
         );

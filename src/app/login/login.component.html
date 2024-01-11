@@ -11,23 +11,42 @@
 
                         <h1 class="fw-bold mt-2 mb-2 text-uppercase">Welcome back</h1>
                         <p class="text-secondary fw-semibold">Sign in to your account!</p>
-                        <form class="mt-4">
-                            <label for="usernameInput" class="fw-semibold">Username</label>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="addon-wrapping"><img
-                                        src="../../assets/userIcon.png" /></span>
-                                <input required type="text" class="form-control " id="usernameInput"
-                                    placeholder="Your username" name="username">
+                        <form [formGroup]="loginForm" class="mt-4">
+                            <div class="mb-3">
+                                <label for="usernameInput" class="fw-semibold">Username</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="addon-wrapping"><img
+                                            src="../../assets/userIcon.png" /></span>
+                                    <input formControlName="username" required type="text" class="form-control "
+                                        id="usernameInput" placeholder="Your username" name="username"
+                                        (blur)="onBlur(username)"
+                                        [ngClass]="{ 'is-invalid': (username.dirty || username.touched) && (username.invalid) }">
+                                </div>
+                                @if(username.invalid && (username.dirty || username.touched)){
+                                <div class="text-danger">
+                                    Username is required!
+                                </div>
+                                }
                             </div>
-                            <label for="passwordInput" class="fw-semibold">Password</label>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="addon-wrapping"><img
-                                        src="../../assets/passwordIcon.png" /></span>
-                                <input required type="password" class="form-control" id="passwordInput"
-                                    placeholder="Your password" name="password">
+                            <div>
+                                <label for="passwordInput" class="fw-semibold">Password</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="addon-wrapping"><img
+                                            src="../../assets/passwordIcon.png" /></span>
+                                    <input formControlName="password" required type="password" class="form-control"
+                                        id="passwordInput" placeholder="Your password" name="password"
+                                        (blur)="onBlur(password)"
+                                        [ngClass]="{ 'is-invalid': (password.dirty || password.touched) && (password.invalid) }">
+                                </div>
+                                @if(password.invalid && (password.dirty || password.touched)){
+                                <div class="text-danger">
+                                    Password is required!
+                                </div>
+                                }
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <input [formControl]="remember" class="form-check-input" type="checkbox" value=""
+                                    id="flexCheckDefault">
                                 <label class="form-check-label fw-semibold" style="margin-left: 8px;"
                                     for="flexCheckDefault">
                                     Remember me
@@ -36,7 +55,7 @@
                             <div class="d-grid mt-4">
                                 <button
                                     class="btn btn-primary fw-bold fs-5 d-flex align-items-center justify-content-center gap-3"
-                                    name="login" type="submit">
+                                    name="login" type="submit" [disabled]="!loginForm.valid" (click)="onSubmit()">
                                     <span> <img src="../../assets/loginIcon.png" style="width: 24px; height: 24px" />
                                     </span> Login
                                 </button>
@@ -44,7 +63,8 @@
                         </form>
                         <hr class="hr" />
                         <div class="d-flex w-100 justify-content-end text-secondary fw-semibold">
-                            Don't have account? &nbsp; <a href="#" class="link-opacity-100-hover">Sign up.</a>
+                            Don't have account? &nbsp; <a routerLink="/register" routerLinkActive="active"
+                                class="link-opacity-100-hover">Sign up.</a>
                         </div>
                     </div>
                 </div>
