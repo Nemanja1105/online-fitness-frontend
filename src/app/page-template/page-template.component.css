@@ -18,3 +18,9 @@
     flex-direction: column;
     min-height: 100vh;
 }
+@media screen and (max-width:500px){
+    #navRight{
+        flex-direction: column;
+    }
+    
+}

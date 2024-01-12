@@ -21,11 +21,11 @@
                 <div class="offcanvas-body">
                     <ul class="navbar-nav align-items-center justify-content-end fs-5 fw-semibold flex-grow-1 pe-3">
                         <li class="nav-item mx-2">
-                            <a class="nav-link active centerIconText" aria-current="page" href="Categories"><img
-                                    src="../../assets/newsIcon.png" />Fitness news</a>
+                            <a class="nav-link  centerIconText" aria-current="page" routerLink="/fitness-news"
+                                routerLinkActive="active"><img src="../../assets/newsIcon.png" />Fitness news</a>
                         </li>
                         <li class="nav-item mx-2">
-                            <a class="nav-link  centerIconText" href="Users"><img
+                            <a class="nav-link  centerIconText" routerLink="/exercises" routerLinkActive="active"><img
                                     src="../../assets/jumpIcon.png" />Exercises</a>
                         </li>
                         <li class="nav-item mx-2">
@@ -36,15 +36,19 @@
                         </li>
 
                     </ul>
-                    <div class="d-flex justify-content-center align-items-center fs-5 fw-bold text-light">
-                        <button class="btn btn-warning fw-semibold centerIconText"><img
+                    <div id="navRight"
+                        class="d-flex  justify-content-center align-items-center gap-3 fs-5 fw-bold text-light">
+                        <img matTooltip="My profile" src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                            class="rounded-circle" style="width: 38px;" alt="Avatar" />
+                        <button matTooltip="Login" routerLink="/login" routerLinkActive="active"
+                            class="btn btn-warning fw-semibold centerIconText"><img
                                 src="../../assets/getStartedIcon.png" />Get started</button>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
-    <div class="custom-background  p-md-5 p-2">
+    <div class="custom-background  p-md-4 p-2">
         <router-outlet></router-outlet>
     </div>
 </div>

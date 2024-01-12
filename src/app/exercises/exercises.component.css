@@ -9,3 +9,14 @@
     gap:10px;
     justify-content: center;
 }
+
+#selects{
+    justify-content:end;
+}
+
+@media screen and (max-width:500px) {
+    #selects{
+        justify-content: center !important;
+    }
+    
+}
