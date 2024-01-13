@@ -24,4 +24,8 @@ export class AuthService {
   public activate(request: any) {
     return this.http.post(config.API_URL + '/auth/activate', request);
   }
+
+  public change(request: any) {
+    return this.http.post(config.API_URL + '/auth/change-password', request);
+  }
 }

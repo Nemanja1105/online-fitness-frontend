@@ -1,0 +1,11 @@
+.textImageCenter{
+    display:flex;
+    align-items: center;
+    gap:10px;
+}
+
+@media screen and (max-width:500px){
+    #nameUser{
+        align-items: center;
+    }
+}

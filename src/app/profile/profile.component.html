@@ -1,0 +1,133 @@
+<div class="textImageCenter w-100 justify-content-center">
+    <span class="fw-bold font-italic m-0 title">My profile</span>
+    <img src="../../assets/profileIcon.png" style="width:48px; height: 48px;">
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-1 col-12 text-center">
+            <img [src]="showImage()" style="width:100px; height: 100%;" alt="Avatar" class="img-fluid rounded-circle">
+        </div>
+        <div id="nameUser" class="col-md-5 p-0 col-12 mb-3 d-flex flex-column justify-content-center  ">
+            <div class="fs-4 fw-semibold">{{user?.name}} {{user?.surname}}</div>
+            <div class="text-secondary fw-semibold ">{{user?.username}}</div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card p-4 rounded-4">
+                <div class="container">
+                    <div class="row gy-4">
+                        <div class="col-md-12 ">
+                            <div class="d-flex justify-content-between">
+                                <div class="fs-4 fw-semibold">
+                                    Basic info
+                                </div>
+                                <a matTooltip="Edit profile" (click)="onEditClick()">
+                                    <img matTooltip="Edit profile" src="../../assets/editIcon.png" />
+                                </a>
+                            </div>
+                            <hr />
+                        </div>
+
+                        <div class="col-md-6">
+                            <div>
+                                <label for="nameLabel" class="fw-semibold">Name</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="addon-wrapping"><img
+                                            src="../../assets/nameIcon.png" /></span>
+                                    <input [formControl]="name" type="text" class="form-control " id="nameLabel"
+                                        placeholder="Your name" name="name" (blur)="onBlur(name)"
+                                        [ngClass]="{ 'is-invalid': (name.dirty || name.touched) && name.invalid }" />
+                                </div>
+                                @if(name.invalid && (name.dirty || name.touched)){
+                                <div class="text-danger">
+                                    Name is required!
+                                </div>
+                                }
+
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div>
+                                <label for="surname" class="fw-semibold">Surname</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="addon-wrapping"><img
+                                            src="../../assets/surnameIcon.png" /></span>
+                                    <input [formControl]="surname" type="text" class="form-control " id="surname"
+                                        placeholder="Your surname" name="surname" (blur)="onBlur(surname)"
+                                        [ngClass]="{ 'is-invalid': (surname.dirty || surname.touched) && surname.invalid }" />
+                                </div>
+                                @if(surname.invalid && (surname.dirty || surname.touched)){
+                                <div class="text-danger">
+                                    Surname is required!
+                                </div>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div>
+                                <label for="city" class="fw-semibold">City</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="addon-wrapping"><img
+                                            src="../../assets/cityIcon.png" /></span>
+                                    <input [formControl]="city" type="text" class="form-control " id="city"
+                                        placeholder="Your city" name="city" (blur)="onBlur(city)"
+                                        [ngClass]="{ 'is-invalid': (city.dirty || city.touched) && city.invalid }" />
+                                </div>
+                                @if(city.invalid && (city.dirty || city.touched)){
+                                <div class="text-danger">
+                                    City is required!
+                                </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div>
+                                <label for="email" class="fw-semibold">Email</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="addon-wrapping"><img
+                                            src="../../assets/emailIcon.png" /></span>
+                                    <input [formControl]="email" type="text" class="form-control " id="email"
+                                        placeholder="Your email" name="email" />
+                                </div>
+                            </div>
+                        </div>
+                        @if(isEdit){
+                        <div class="col-md-6">
+                            <label for="formFile" class="form-label fw-semibold">Profile image</label>
+                            <input (change)="onFileSelected($event)" class="form-control" type="file"
+                                accept="image/png, image/jpeg" id="formFile">
+                        </div>
+                        <div class="col-md-12">
+                            <button class="btn btn-outline-primary fw-semibold textImageCenter"
+                                (click)="openDialog()">Change password <img
+                                    src="../../assets/changePasswordIcon.png" /></button>
+                        </div>
+                        <div class="col-md-12 ">
+                            <hr />
+                            <div class="d-flex justify-content-center gap-3">
+                                <button [disabled]="name.invalid || surname.invalid || city.invalid"
+                                    matTooltip="Update profile" class="btn btn-success textImageCenter fw-semibold fs-5"
+                                    (click)="onSubmit()">Update<img src="../../assets/updateIcon.png"
+                                        style="width:24px; height: 24px;" /></button>
+                                <button matTooltip="Close" (click)="onEditClick()"
+                                    class="btn btn-danger fw-semibold fs-5 textImageCenter">Close<img
+                                        src="../../assets/closeIcon.jpeg" style="width:24px; height: 24px;" /></button>
+                            </div>
+
+                        </div>
+                        }
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

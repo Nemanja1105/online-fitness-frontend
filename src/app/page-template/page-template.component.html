@@ -24,25 +24,42 @@
                             <a class="nav-link  centerIconText" aria-current="page" routerLink="/fitness-news"
                                 routerLinkActive="active"><img src="../../assets/newsIcon.png" />Fitness news</a>
                         </li>
+                        @if(isLoggin)
+                        {
                         <li class="nav-item mx-2">
                             <a class="nav-link  centerIconText" routerLink="/exercises" routerLinkActive="active"><img
                                     src="../../assets/jumpIcon.png" />Exercises</a>
                         </li>
+                        }
                         <li class="nav-item mx-2">
-                            <a class="nav-link centerIconText" href="Users">Programs</a>
+                            <a class="nav-link centerIconText" routerLink="/programs" routerLinkActive="active"><img
+                                    src="../../assets/fitnessProgramIcon.png" />Programs</a>
                         </li>
+                        @if(isLoggin){
                         <li class="nav-item mx-2">
-                            <a class="nav-link centerIconText" href="Users">Progress</a>
+                            <a class="nav-link centerIconText" routerLink="/my-programs" routerLinkActive="active"><img
+                                    src="../../assets/myProgramsIcon.png" />My
+                                programs</a>
                         </li>
+                        }
 
                     </ul>
                     <div id="navRight"
                         class="d-flex  justify-content-center align-items-center gap-3 fs-5 fw-bold text-light">
-                        <img matTooltip="My profile" src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
-                            class="rounded-circle" style="width: 38px;" alt="Avatar" />
-                        <button matTooltip="Login" routerLink="/login" routerLinkActive="active"
-                            class="btn btn-warning fw-semibold centerIconText"><img
-                                src="../../assets/getStartedIcon.png" />Get started</button>
+                        @if(isLoggin){
+                        <a routerLink="/profile" routerLinkActive="active"><img matTooltip="My profile"
+                                [src]="showImage()" class="rounded-circle" style="width: 38px; height: 38px;"
+                                alt="Avatar" /></a>}
+                        <button matTooltip="Login" (click)="logClick()"
+                            class="btn btn-warning fw-semibold centerIconText">
+                            @if(!isLoggin)
+                            {
+                            <img src="../../assets/getStartedIcon.png" />Get started
+                            }
+                            @else {
+                            <img src="../../assets/logoutIcon.png" />Logout
+                            }
+                        </button>
                     </div>
                 </div>
             </div>

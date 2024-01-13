@@ -42,7 +42,6 @@ export class TokenService {
     let token = this.decodeToken();
     let exp = token ? token.exp : null;
     if (exp) {
-      this.logout();
       return 1000 * exp - new Date().getTime() < 5000;
     } else return false;
   }
@@ -50,6 +49,15 @@ export class TokenService {
   public storeUser(user: any) {
     window.localStorage.removeItem(config.USER_KEY);
     window.localStorage.setItem(config.USER_KEY, JSON.stringify(user));
+  }
+
+  public updateUser(updated: any) {
+    let user = this.getUser();
+    user.name = updated.name;
+    user.surname = updated.surname;
+    user.city = updated.city;
+    user.profileImageId = updated.profileImageId;
+    this.storeUser(user);
   }
 
   public getUser(): any {
