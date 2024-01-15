@@ -1,0 +1,386 @@
+<div class="container h-100 mt-md-5">
+    <div class="row d-flex align-items-center justify-content-center h-100">
+        <div class="col-xs-12 col-sm-11 col-md-9 col-xl-8">
+            <div class="card mt-4 shadow-5  rounded-4">
+                <div class="card-body p-md-5 py-md-4">
+                    <h2 class="fw-bold mt-2 mb-2 text-uppercase text-center">Create new fitness program</h2>
+                    <mat-stepper linear #stepper class="mt-4">
+                        <mat-step editable>
+                            <ng-template matStepLabel class="fw-semibold">Step 1</ng-template>
+                            <form [formGroup]="programForm" class="mt-2">
+                                <div class="container">
+                                    <div class="row gy-4">
+                                        <div class="col-md-6">
+                                            <div>
+                                                <label for="nameLabel" class="fw-semibold">Name</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="addon-wrapping"><img
+                                                            src="../../assets/nameIcon.png" /></span>
+                                                    <input [formControl]="name" type="text" class="form-control "
+                                                        id="nameLabel" placeholder="Enter program name" name="name"
+                                                        (blur)="onBlur(name)"
+                                                        [ngClass]="{ 'is-invalid': (name.dirty || name.touched) && name.invalid }" />
+                                                </div>
+                                                @if(name.invalid && (name.dirty || name.touched)){
+                                                <div class="text-danger">
+                                                    Name is required!
+                                                </div>
+                                                }
+
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div>
+                                                <label for="durationInput" class="fw-semibold">Duration</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="addon-wrapping"><img
+                                                            src="../../assets/durationIcon.png" /></span>
+                                                    <input min="0" [formControl]="duration" type="number"
+                                                        class="form-control " id="durationInput"
+                                                        placeholder="Enter duration" name="duration"
+                                                        (blur)="onBlur(duration)"
+                                                        [ngClass]="{ 'is-invalid': (duration.dirty || duration.touched) && duration.invalid }" />
+                                                </div>
+                                                @if(duration.invalid && (duration.dirty || duration.touched)){
+                                                <div class="text-danger">
+                                                    Duration is required!
+                                                </div>
+                                                }
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div>
+                                                <label for="difficultyInput" class="fw-semibold">Difficulty</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="addon-wrapping"><img
+                                                            src="../../assets/dificultyIcon.png"
+                                                            style="width:24px; height: 24px;" /></span>
+                                                    <select [formControl]="difficulty" class="form-select "
+                                                        id="difficultyInput" name="difficulty"
+                                                        (blur)="onBlur(difficulty)"
+                                                        [ngClass]="{ 'is-invalid': (difficulty.dirty || difficulty.touched) && difficulty.invalid }">
+                                                        <option hidden value="default" style="color: blue;">
+                                                            Select
+                                                            program difficulty
+                                                        </option>
+                                                        <option value="Beginner">Beginner</option>
+                                                        <option value="Intermediate">Intermediate</option>
+                                                        <option value="Expert">Expert</option>
+                                                    </select>
+                                                </div>
+                                                @if(difficulty.invalid && (difficulty.dirty || difficulty.touched)){
+                                                <div class="text-danger">
+                                                    Difficulty is required!
+                                                </div>
+                                                }
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div>
+                                                <label for="priceInput" class="fw-semibold">Price</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="addon-wrapping"><img
+                                                            src="../../assets/priceIcon.png" /></span>
+                                                    <input min="0" [formControl]="price" type="number"
+                                                        class="form-control " id="priceInput"
+                                                        placeholder="Enter duration" name="price" (blur)="onBlur(price)"
+                                                        [ngClass]="{ 'is-invalid': (price.dirty || price.touched) && price.invalid }" />
+                                                </div>
+                                                @if(price.invalid && (price.dirty || price.touched)){
+                                                <div class="text-danger">
+                                                    Price is required!
+                                                </div>
+                                                }
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div>
+                                                <label for="descriptionInput" class="fw-semibold">Description</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="addon-wrapping"><img
+                                                            src="../../assets/descriptionIcon.jpeg" /></span>
+                                                    <textarea [formControl]="description" class="form-control " rows="3"
+                                                        id="descriptionInput" placeholder="Enter program description"
+                                                        name="description" (blur)="onBlur(description)"
+                                                        [ngClass]="{ 'is-invalid': (description.dirty || description.touched) && description.invalid }">
+                                                    </textarea>
+                                                </div>
+                                                @if(description.invalid && (description.dirty || description.touched)){
+                                                <div class="text-danger">
+                                                    Description is required!
+                                                </div>
+                                                }
+
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="d-flex justify-content-center  mt-2">
+                                                <button
+                                                    class="btn btn-outline-primary fs-5 d-flex align-items-center gap-1"
+                                                    matStepperNext>Next step</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step editable>
+                            <ng-template matStepLabel class="fw-semibold">Step 2</ng-template>
+                            <form [formGroup]="programForm" class="mt-2">
+                                <div class="container">
+                                    <div class="row gy-4">
+                                        <div class="col-md-6">
+                                            <div>
+                                                <label for="instructorNameInput" class="fw-semibold">Instructor
+                                                    name</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="addon-wrapping"><img
+                                                            src="../../assets/instructorNameIcon.png" /></span>
+                                                    <input [formControl]="instructorName" type="text"
+                                                        class="form-control " id="instructorNameInput"
+                                                        placeholder="Enter instructor name" name="instructorName"
+                                                        (blur)="onBlur(instructorName)"
+                                                        [ngClass]="{ 'is-invalid': (instructorName.dirty || instructorName.touched) && instructorName.invalid }" />
+                                                </div>
+                                                @if(instructorName.invalid && (instructorName.dirty ||
+                                                instructorName.touched)){
+                                                <div class="text-danger">
+                                                    Instructor name is required!
+                                                </div>
+                                                }
+
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div>
+                                                <label for="instructorSurnameInput" class="fw-semibold">Instructor
+                                                    surname</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="addon-wrapping"><img
+                                                            src="../../assets/instructorSurnameIcon.png" /></span>
+                                                    <input [formControl]="instructorSurname" type="text"
+                                                        class="form-control " id="instructorSurnameInput"
+                                                        placeholder="Enter instructor surname" name="instructorSurname"
+                                                        (blur)="onBlur(instructorSurname)"
+                                                        [ngClass]="{ 'is-invalid': (instructorSurname.dirty || instructorSurname.touched) && instructorSurname.invalid }" />
+                                                </div>
+                                                @if(instructorSurname.invalid && (instructorSurname.dirty ||
+                                                instructorSurname.touched)){
+                                                <div class="text-danger">
+                                                    Instructor surname is required!
+                                                </div>
+                                                }
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div>
+                                                <label for="instructorContactInput" class="fw-semibold">Instructor
+                                                    contact</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="addon-wrapping"><img
+                                                            src="../../assets/contactIcon.png" /></span>
+                                                    <input [formControl]="instructorContact" type="text"
+                                                        class="form-control " id="instructorContactInput"
+                                                        placeholder="Enter contact details" name="instructorContact"
+                                                        (blur)="onBlur(instructorContact)"
+                                                        [ngClass]="{ 'is-invalid': (instructorContact.dirty || instructorContact.touched) && instructorContact.invalid }" />
+                                                </div>
+                                                @if(instructorContact.invalid && (instructorContact.dirty ||
+                                                instructorContact.touched)){
+                                                <div class="text-danger">
+                                                    Instructor contact is required!
+                                                </div>
+                                                }
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="formFile" class="form-label fw-semibold">Image</label>
+                                            <input (change)="onFileSelected($event)" class="form-control" type="file"
+                                                accept="image/png, image/jpeg" id="formFile" (blur)="onBlur(file)"
+                                                [formControl]="file"
+                                                [ngClass]="{ 'is-invalid': (file.dirty || file.touched) && file.invalid }">
+                                            @if(file.invalid && (file.dirty ||
+                                            file.touched)){
+                                            <div class="text-danger">
+                                                Program image is required!
+                                            </div>
+                                            }
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div>
+                                                <label for="locationInput" class="fw-semibold">Location</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="addon-wrapping"><img
+                                                            src="../../assets/parkHomeIcon.png"
+                                                            style="width:24px; height: 24px;" /></span>
+                                                    <select (change)="onLocationChange($event)" [formControl]="location"
+                                                        class="form-select " id="locationInput" name="difficulty"
+                                                        (blur)="onBlur(location)"
+                                                        [ngClass]="{ 'is-invalid': (location.dirty || location.touched) && location.invalid }">
+                                                        <option hidden value="default" style="color: blue;">
+                                                            Select
+                                                            program location
+                                                        </option>
+                                                        <option value="Online">Online</option>
+                                                        <option value="Gym">Gym</option>
+                                                        <option value="Park">Park</option>
+                                                    </select>
+                                                </div>
+                                                @if(location.invalid && (location.dirty || location.touched)){
+                                                <div class="text-danger">
+                                                    Location is required!
+                                                </div>
+                                                }
+
+                                            </div>
+                                        </div>
+
+                                        @if(location.value=='Gym' || location.value=='Park')
+                                        {
+                                        <div class="col-md-6">
+                                            <div>
+                                                <label for="addressInput" class="fw-semibold">Address</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="addon-wrapping"><img
+                                                            src="../../assets/locationNewIcon.png" /></span>
+                                                    <input [formControl]="address" type="text" class="form-control "
+                                                        id="addressInput" placeholder="Enter address" name="address"
+                                                        (blur)="onBlur(address)"
+                                                        [ngClass]="{ 'is-invalid': (address.dirty || address.touched) && address.invalid }" />
+                                                </div>
+                                                @if(address.invalid && (address.dirty ||
+                                                address.touched)){
+                                                <div class="text-danger">
+                                                    Address is required!
+                                                </div>
+                                                }
+
+                                            </div>
+                                        </div>
+                                        }
+                                        @else if(location.value=="Online"){
+                                        <div class="col-md-6">
+                                            <div>
+                                                <label for="linkInput" class="fw-semibold">Youtube link</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="addon-wrapping"><img
+                                                            src="../../assets/youtubeIcon.png" /></span>
+                                                    <input [formControl]="link" type="text" class="form-control "
+                                                        id="linkInput" placeholder="Enter youtube link" name="address"
+                                                        (blur)="onBlur(link)"
+                                                        [ngClass]="{ 'is-invalid': (link.dirty || link.touched) && link.invalid }" />
+                                                </div>
+                                                @if(link.invalid && (link.dirty ||
+                                                link.touched)){
+                                                <div class="text-danger">
+                                                    @if(link.errors?.['pattern'])
+                                                    {
+                                                    Youtube link is not valid!
+                                                    }
+                                                    @else if(link.errors?.['required']){
+                                                    Youtube link is required!
+                                                    }
+                                                </div>
+                                                }
+
+                                            </div>
+                                        </div>
+                                        }
+                                        <div class="col-md-12">
+                                            <div class="d-flex justify-content-center gap-2 mt-2">
+                                                <button
+                                                    class="btn btn-outline-primary fs-5 d-flex align-items-center gap-1"
+                                                    matStepperPrevious>Previous step</button>
+                                                <button
+                                                    class="btn btn-outline-primary fs-5 d-flex align-items-center gap-1"
+                                                    matStepperNext>Next step</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step editable>
+                            <ng-template matStepLabel class="fw-semibold">Step 3</ng-template>
+                            <form [formGroup]="programForm" class="mt-2">
+                                <div class="container">
+                                    <div class="row gy-4">
+                                        <div class="col-md-12">
+                                            <div>
+                                                <label for="categoryInput" class="fw-semibold">Category</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="addon-wrapping"><img
+                                                            src="../../assets/categIcon.png"
+                                                            style="width:24px; height: 24px;" /></span>
+                                                    <select (change)="onCategoryChange()" [formControl]="category"
+                                                        class="form-select " id="categoryInput" name="category"
+                                                        (blur)="onBlur(category)"
+                                                        [ngClass]="{ 'is-invalid': (category.dirty || category.touched) && category.invalid }">
+                                                        <option hidden value="default" style="color: blue;">Select
+                                                            program category</option>
+
+                                                        @for(c of categories; track c.id){
+                                                        <option [ngValue]="c">{{c.name}}</option>
+                                                        }
+
+
+                                                    </select>
+                                                </div>
+                                                @if(category.invalid && (category.dirty || category.touched)){
+                                                <div class="text-danger">
+                                                    Category is required!
+                                                </div>
+                                                }
+
+                                            </div>
+                                        </div>
+
+                                        @for(c of mapAtr; track $index){
+                                        <div class="col-md-6">
+                                            <div>
+                                                <label for="id-{{$index}}" class="fw-semibold">{{c.name}}</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="addon-wrapping"><img
+                                                            src="../../assets/attributeIcon.png" /></span>
+
+                                                    <input [formControl]="$any(attributes.controls[0].get(c.name))"
+                                                        type="text" class="form-control " id="id-{{$index}}"
+                                                        placeholder="Enter value" name="address" />
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                        }
+                                        <div class="col-md-12">
+                                            <div class="d-flex justify-content-center gap-2 mt-2">
+                                                <button
+                                                    class="btn btn-outline-primary fs-5 d-flex align-items-center gap-1"
+                                                    matStepperPrevious>Previous step</button>
+                                                <button [disabled]="programForm.invalid" (click)="onSubmit()"
+                                                    class="btn btn-outline-success textImageCenter fs-5 d-flex align-items-center gap-1"
+                                                    matStepperNext>Create<img
+                                                        src="../../assets/addButton.jpeg" /></button>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </form>
+                        </mat-step>
+                    </mat-stepper>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

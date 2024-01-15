@@ -10,6 +10,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { mainGuard } from './guards/MainGuard/main.guard';
 import { FitnessProgramsComponent } from './fitness-programs/fitness-programs.component';
 import { MyFitnessProgramsComponent } from './my-fitness-programs/my-fitness-programs.component';
+import { NewFitnessProgramComponent } from './new-fitness-program/new-fitness-program.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [loginGuard] },
@@ -34,6 +35,11 @@ export const routes: Routes = [
       {
         path: 'my-programs',
         component: MyFitnessProgramsComponent,
+        canActivate: [mainGuard],
+      },
+      {
+        path: 'new-fitness-program',
+        component: NewFitnessProgramComponent,
         canActivate: [mainGuard],
       },
       { path: '', redirectTo: '/fitness-news', pathMatch: 'full' },

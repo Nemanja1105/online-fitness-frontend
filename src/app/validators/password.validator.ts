@@ -7,3 +7,11 @@ export const confirmPasswordValidator: ValidatorFn = (
     ? null
     : { PasswordNoMatch: true };
 };
+
+export function notEqualToValidator(defaultValue: any): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value = control.value;
+    const isNotEqual = value !== defaultValue;
+    return isNotEqual ? null : { notEqualTo: true };
+  };
+}

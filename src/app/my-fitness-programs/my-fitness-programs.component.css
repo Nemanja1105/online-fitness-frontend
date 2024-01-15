@@ -3,3 +3,13 @@
     align-items: center;
     gap:10px;
 }
+
+
+    .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+        color: white;
+        background-color: #3050c5;
+    }
+
+    .nav-link{
+        color:#3050c5
+    }
