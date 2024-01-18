@@ -1,0 +1,22 @@
+.central-image{
+    height: 300px;
+    overflow: hidden;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+}
+
+.textImageCenter{
+    display:flex;
+    align-items: center;
+    gap:10px;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: white;
+    background-color: #3050c5;
+}
+
+.nav-link{
+    color:#3050c5
+}
+

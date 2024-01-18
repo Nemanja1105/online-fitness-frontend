@@ -2,7 +2,7 @@
     <img src="../../../assets/cardTempImage.jpg" class="card-img-top img-fluid" alt="..." style="height:190px">
     <div class="card-body">
         <div class="d-flex justify-content-between">
-            <span class="badge text-bg-primary fs-6">{{program?.category}}</span>
+            <span class="badge text-bg-primary fs-6 p-2">{{program?.category}}</span>
             <span class="badge text-bg-warning text-light fs-6">{{program?.difficulty}}</span>
         </div>
         <p class=" fw-semibold fs-4 m-0">{{program?.name}}</p>
@@ -12,8 +12,9 @@
             <div matTooltip="Delete program" class="btn btn-outline-danger fw-semibold textImageCenter ">Delete <img
                     src="../../../assets/deleteIcon.jpeg" style="width: 24px; height: 24px;">
             </div>
-            <div matTooltip="View program details" class="btn btn-outline-success  fw-semibold textImageCenter">View
-                details <img src="../../../assets/viewDetailsIcon.png"></div>
+            <a [routerLink]="['/fitness-program',program?.id]" matTooltip="View program details"
+                class="btn btn-outline-success  fw-semibold textImageCenter">View
+                details <img src="../../../assets/viewDetailsIcon.png"></a>
         </div>
     </div>
 </div>

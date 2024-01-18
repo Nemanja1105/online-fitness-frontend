@@ -67,6 +67,7 @@ export class NewFitnessProgramComponent {
     });
   }
 
+  regex: string = '(?:https?:\\/\\/)?(?:www\\.)?youtu(?:\\.be\\/|be.com\\/\\S*(?:watch|embed)(?:(?:(?=\\/[-a-zA-Z0-9_]{11,}(?!\\S))\\/)|(?:\\S*v=|v\\/)))([-a-zA-Z0-9_]{11,})';
   programForm = this.fb.group({
     name: this.name,
     duration: this.duration,
@@ -106,7 +107,7 @@ export class NewFitnessProgramComponent {
       this.link.addValidators([
         Validators.required,
         Validators.pattern(
-          '(?:https?:\\/\\/)?(?:www\\.)?youtu(?:\\.be\\/|be.com\\/\\S*(?:watch|embed)(?:(?:(?=\\/[-a-zA-Z0-9_]{11,}(?!\\S))\\/)|(?:\\S*v=|v\\/)))([-a-zA-Z0-9_]{11,})'
+          this.regex
         ),
       ]);
     } else {
@@ -126,12 +127,15 @@ export class NewFitnessProgramComponent {
     this.attributes.push(tmpGroup);
     this.mapAtr = selectedCategory.attributes;
 
+
   }
 
   onSubmit() {
     this.imageService.uploadImage(this.selectedImage).subscribe({
       next: (data) => {
         let tmp = this.programForm.value;
+
+
         let obj: any = {
           name: tmp.name, description: tmp.description, categoryId: tmp.category.id, price: tmp.price,
           duration: tmp.duration, difficulty: tmp.difficulty, location: tmp.location, imageId: data, instructorName: tmp.instructorName,
@@ -139,8 +143,15 @@ export class NewFitnessProgramComponent {
         }
         if (tmp.location === 'Gym' || tmp.location === 'Park')
           obj['locationLink'] = tmp.address;
-        else
-          obj['locationLink'] = tmp.link;
+        else {
+          let linkTmp: any = tmp.link;
+          const match = linkTmp.match(this.regex);
+          let link: any = "";
+          if (match) {
+            link = match[1];
+          }
+          obj['locationLink'] = link;
+        }
         let attributes: any = tmp.attributes ? tmp.attributes[0] : null;
         let mapped = this.mapAtr.map((el: any) => {
           return { id: el.id, value: attributes[el.name] }

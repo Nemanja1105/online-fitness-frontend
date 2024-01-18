@@ -17,6 +17,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class MyFitnessProgramsComponent {
   program = {
+    id: 3,
     name: 'Isklesali trbusnjaci za 30 dana',
     price: 15,
     difficulty: 'begginer',

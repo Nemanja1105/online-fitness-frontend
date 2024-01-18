@@ -11,6 +11,7 @@ import { mainGuard } from './guards/MainGuard/main.guard';
 import { FitnessProgramsComponent } from './fitness-programs/fitness-programs.component';
 import { MyFitnessProgramsComponent } from './my-fitness-programs/my-fitness-programs.component';
 import { NewFitnessProgramComponent } from './new-fitness-program/new-fitness-program.component';
+import { FitnessProgramDetailsComponent } from './fitness-program-details/fitness-program-details.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [loginGuard] },
@@ -41,6 +42,10 @@ export const routes: Routes = [
         path: 'new-fitness-program',
         component: NewFitnessProgramComponent,
         canActivate: [mainGuard],
+      },
+      {
+        path: 'fitness-program/:id',
+        component: FitnessProgramDetailsComponent
       },
       { path: '', redirectTo: '/fitness-news', pathMatch: 'full' },
     ],
