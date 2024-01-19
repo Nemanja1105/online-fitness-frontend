@@ -16,4 +16,12 @@ export class FitnessProgramServiceService {
   public findById(id: any) {
     return this.http.get(config.API_URL + `/fitness-programs/${id}`);
   }
+
+  public participateToFitnessProgram(cliendId: any, fpId: any) {
+    return this.http.get(config.API_URL + `/clients/${cliendId}/fitness-program/${fpId}/subscribe`);
+  }
+
+  public isParticipating(cliendId: any, fpId: any) {
+    return this.http.get(config.API_URL + `/clients/${cliendId}/fitness-program/${fpId}/participating`);
+  }
 }
