@@ -16,8 +16,8 @@
                             
                             }">{{program?.difficulty}}</span>
                             </div>
-                            @if(!isParticipating){
-                            <a [routerLink]="['/subscribe',program?.id]"
+                            @if(!isParticipating && program?.client?.id!==clientId){
+                            <a [routerLink]="['/subscribe',program?.id]" matTooltip="Participate to fitness program"
                                 class="btn btn-outline-primary fw-semibold fs-5 textImageCenter">Participation
                                 <img src="../../assets/subscribeIcon.png" /></a>
                             }
@@ -37,7 +37,7 @@
                                 class="nav-link fw-semibold fs-6 textImageCenter">Comments<img
                                     src="../../assets/commentsIcon.png" /></a>
                         </li>
-                        @if(isParticipating){
+                        @if(isParticipating || program?.client?.id===clientId){
                         <li class="nav-item">
                             <a data-bs-toggle="tab" data-bs-target="#start-tab-pane"
                                 class="nav-link fw-semibold fs-6 textImageCenter">Let's start<img
@@ -134,15 +134,75 @@
                                     </div>
                                 </div>
                             </div>
-
-
-
-
-
                         </div>
                         <div class="tab-pane fade" id="comments-tab-pane" role="tabpanel" aria-labelledby="home-tab"
                             tabindex="0">
-                            2
+                            <div class="container mt-4">
+                                <div class="row">
+                                    <div class="d-flex justify-content-end">
+                                        <button data-bs-toggle="collapse" href="#commentCollapse"
+                                            class="btn btn-primary fw-semibold fs-6 textImageCenter"
+                                            matTooltip="Comment fitness program">{{program?.client?.id===clientId?'Reply':'Comment'}}<img
+                                                src="../../assets/commentsIcon.png"
+                                                style="height: 24px; width: 24px;" /></button>
+                                    </div>
+                                    <div class="collapse mt-3 rounded-4" id="commentCollapse">
+                                        <div class="card card-body">
+
+                                            <div class="mb-2">
+                                                <label for="descriptionInput" class="fw-semibold">Comment</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="addon-wrapping"><img
+                                                            src="../../assets/descriptionIcon.jpeg" /></span>
+                                                    <textarea [formControl]="comment" class="form-control " rows="2"
+                                                        id="descriptionInput" placeholder="Enter comment"
+                                                        name="description" (blur)="onBlur(comment)"
+                                                        [ngClass]="{ 'is-invalid': (comment.dirty || comment.touched) && comment.invalid }">
+                                                        </textarea>
+                                                </div>
+                                                @if(comment.invalid && (comment.dirty ||
+                                                comment.touched)){
+                                                <div class="text-danger">
+                                                    Comment is required!
+                                                </div>
+                                                }
+
+                                            </div>
+                                            <button class="btn btn-success fw-semibold" [disabled]="comment.invalid"
+                                                (click)="saveComment()">Save comment</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3 gy-3">
+                                    @for (item of comments; track $index) {
+                                    <div class="card rounded-4">
+                                        <div class="card-body">
+                                            <div class="d-flex gap-3 align-items-center">
+
+                                                <img [src]="showImageById(item)" style=" height: 40px; width: 40px;"
+                                                    alt="Avatar" class="img-fluid rounded-circle">
+                                                <div class="fs-5 fw-semibold">{{item.sender.name}}
+                                                    {{item.sender.surname}}</div>
+                                                <div class="text-secondary fw-semibold">
+                                                    {{getFormattedTime(item.createdAt)}}</div>
+                                                @if(item.fitnessProgramClientId===item.sender.id){
+                                                <span class="badge text-bg-danger p-2">Owner</span>
+                                                }
+
+                                            </div>
+                                            <div class="fs-6 mt-1">{{item.comment}}</div>
+                                        </div>
+                                    </div>
+                                    }
+
+
+
+
+
+                                </div>
+                            </div>
+
                         </div>
                         <div class="tab-pane fade" id="start-tab-pane" role="tabpanel" aria-labelledby="home-tab"
                             tabindex="0">
