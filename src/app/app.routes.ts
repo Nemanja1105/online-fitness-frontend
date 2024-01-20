@@ -13,6 +13,7 @@ import { MyFitnessProgramsComponent } from './my-fitness-programs/my-fitness-pro
 import { NewFitnessProgramComponent } from './new-fitness-program/new-fitness-program.component';
 import { FitnessProgramDetailsComponent } from './fitness-program-details/fitness-program-details.component';
 import { SubscribeComponent } from './subscribe/subscribe.component';
+import { ChatComponent } from './chat/chat.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [loginGuard] },
@@ -51,6 +52,11 @@ export const routes: Routes = [
       {
         path: 'subscribe/:id',
         component: SubscribeComponent,
+        canActivate: [mainGuard]
+      },
+      {
+        path: 'chat',
+        component: ChatComponent,
         canActivate: [mainGuard]
       },
       { path: '', redirectTo: '/programs', pathMatch: 'full' },
