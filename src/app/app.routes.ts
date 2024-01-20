@@ -53,7 +53,7 @@ export const routes: Routes = [
         component: SubscribeComponent,
         canActivate: [mainGuard]
       },
-      { path: '', redirectTo: '/fitness-news', pathMatch: 'full' },
+      { path: '', redirectTo: '/programs', pathMatch: 'full' },
     ],
   },
 ];

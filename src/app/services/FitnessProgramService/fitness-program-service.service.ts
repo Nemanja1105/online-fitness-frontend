@@ -37,4 +37,20 @@ export class FitnessProgramServiceService {
   public findAllByFilters(page: any, size: any, request: any): Observable<any> {
     return this.http.post(config.API_URL + `/fitness-programs/filters?page=${page}&size=${size}`, request);
   }
+
+  public findAllFpForClient(id: any) {
+    return this.http.get(config.API_URL + `/clients/${id}/fitness-programs`);
+  }
+
+  public deleteFp(clientId: any, id: any) {
+    return this.http.delete(config.API_URL + `/clients/${clientId}/fitness-programs/${id}`);
+  }
+
+  public findAllActiveFpForClient(cliendId: any) {
+    return this.http.get(config.API_URL + `/clients/${cliendId}/fitness-programs/active`);
+  }
+
+  public findAllFinishedFpForClient(cliendId: any) {
+    return this.http.get(config.API_URL + `/clients/${cliendId}/fitness-programs/finished`);
+  }
 }

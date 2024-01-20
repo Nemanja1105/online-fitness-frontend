@@ -1,3 +1,4 @@
+<!--
 <div class="card" style="min-height:380px">
     <img class="img-fluid bgimg" src="../../../assets/cardTempImage.jpg" class="card-img-top img-fluid" alt="..."
         style="height:200px">
@@ -18,4 +19,37 @@
                 details <img src="../../../assets/viewDetailsIcon.png"></a>
         </div>
     </div>
-</div>
+</div>-->
+
+<div class="card" style="min-height:350px">
+    <img class="img-fluid bgimg" [src]="showImage()" class="card-img-top img-fluid" alt="..." style="height:200px">
+    <div class="card-body d-flex flex-column justify-content-between">
+
+        <div>
+            <p class=" fw-semibold fs-4 m-0">{{program?.name}}</p>
+            <div class="d-flex justify-content-between">
+                <p class="fw-semibold text-secondary fs-5 m-0">{{program?.price}}KM</p>
+                <img [matTooltip]="program?.location" [src]="locationIcon()" style="width:24px; height: 24px;" />
+            </div>
+            <div class="d-flex justify-content-between mt-3">
+                <span class="badge text-bg-primary fs-6 p-2">{{program?.categoryName}}</span>
+                <span class="badge fs-6" [ngClass]="{'text-bg-success':program?.difficulty==='Beginner',
+            'text-bg-warning':program?.difficulty==='Intermediate',
+            'text-bg-danger':program?.difficulty==='Expert'
+        
+        }">{{program?.difficulty}}</span>
+            </div>
+            <!--<div class="d-flex justify-content-end align-items-center">
+            <a [routerLink]="['/fitness-program',program?.id]" matTooltip="View program details"
+                class="btn btn-outline-success  fw-semibold textImageCenter">View
+                details <img src="../../../assets/viewDetailsIcon.png"></a>
+        </div>-->
+            <hr />
+            <div class="d-flex justify-content-between ">
+                <a matTooltip="View details" (click)="onCardClick()"><img
+                        src="../../../assets/viewDetailsIcon.png" /></a>
+                <a matTooltip="Delete fitness program" (click)="deleteProgram()"><img
+                        src="../../../assets/deleteIcon.jpeg" /></a>
+            </div>
+        </div>
+    </div>

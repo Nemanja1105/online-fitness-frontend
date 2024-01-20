@@ -71,6 +71,12 @@
             <app-fitness-program-card-detail [program]="program"></app-fitness-program-card-detail>
         </div>
         }
+        @empty {
+        <div class="d-flex flex-column align-items-center fs-3 fw-semibold">
+            <img src="../../assets/emptyIcon.png" />
+            There are no fitness programs created!!
+        </div>
+        }
 
 
 

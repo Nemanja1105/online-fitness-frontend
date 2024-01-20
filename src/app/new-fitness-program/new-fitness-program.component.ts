@@ -151,6 +151,8 @@ export class NewFitnessProgramComponent {
             link = match[1];
           }
           obj['locationLink'] = link;
+          console.log(link);
+          console.log(obj);
         }
         let attributes: any = tmp.attributes ? tmp.attributes[0] : null;
         let mapped = this.mapAtr.map((el: any) => {
