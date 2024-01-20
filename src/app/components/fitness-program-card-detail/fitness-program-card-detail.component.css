@@ -4,10 +4,13 @@
     gap:10px;
 }
 
-.card:hover img{
-    cursor: pointer;
+.card:hover>img{
     filter: blur(3px); 
   transition: filter 0.3s ease;
+}
+
+.card:hover{
+    cursor: pointer;
 }
 
 .card{

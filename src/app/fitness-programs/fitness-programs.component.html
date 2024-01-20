@@ -1,1 +1,87 @@
-<p>fitness-programs works!</p>
+<div class="textImageCenter justify-content-center w-100 ">
+    <span class="fw-bold font-italic m-0 title">Fitness programs</span>
+    <img src="../../assets/gymnasticsIcon.png" style="width:48px; height: 48px;">
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="card rounded-4 p-3 card-body d-flex align-items-center">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-5">
+                        <label for="nameLabel" class="fw-semibold">Search by program name</label>
+                        <div class="input-group">
+                            <input (keyup)="onFilterChange()" type="text" class="form-control" [formControl]="search"
+                                id="nameLabel" placeholder="Enter program name" name="name" />
+                            <span class="input-group-text" id="addon-wrapping"><img
+                                    src="../../assets/searchIcon.png" /></span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-7">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12 col-md-4">
+                                    <label for="categorySelect" class="fw-semibold">Category</label>
+                                    <select (change)="onFilterChange()" [formControl]="category"
+                                        class="form-select w-10" id="categorySelect"
+                                        aria-label="Default select example">
+                                        <option selected value="default">All</option>
+                                        @for (c of categories; track $index) {
+                                        <option [value]="c.id">{{c.name}}</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label for="difficultySelect" class="fw-semibold">Difficulty</label>
+                                    <select (change)="onFilterChange()" [formControl]="difficulty"
+                                        class="form-select w-10" id="difficultySelect"
+                                        aria-label="Default select example">
+                                        <option selected value="default">All</option>
+                                        <option value="Beginner">Beginner</option>
+                                        <option value="Intermediate">Intermediate</option>
+                                        <option value="Expert">Expert</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label for="locationSelect" class="fw-semibold">Location</label>
+                                    <select (change)="onFilterChange()" [formControl]="location"
+                                        class="form-select w-10" id="locationSelect"
+                                        aria-label="Default select example">
+                                        <option selected value="default">All</option>
+                                        <option value="Online">Online</option>
+                                        <option value="Gym">Gym</option>
+                                        <option value="Park">Park</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid mt-4">
+    <div class="row gy-4">
+        @for(program of programs; track $index){
+        <div class="col-md-6 col-lg-6 col-xxl-custom">
+            <app-fitness-program-card-detail [program]="program"></app-fitness-program-card-detail>
+        </div>
+        }
+
+
+
+    </div>
+    <div class="row mt-4 d-flex justify-content-end">
+        <div class="col-md-4">
+            <mat-paginator class="card rounded-4 fs-6" (page)="onPageChange($event)" [length]="lenght"
+                [showFirstLastButtons]="true" [pageSize]="pageSize" [pageIndex]="pageIndex"
+                [pageSizeOptions]="[5,10,15]" aria-label=" Select page">
+            </mat-paginator>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,12 @@
+.textImageCenter{
+    display:flex;
+    align-items: center;
+    gap:10px;
+}
+
+@media (min-width: 1400px) {
+    .col-xxl-custom {
+      flex: 0 0 20%; /* 100% / 5 kartica */
+      max-width: 20%;
+    }
+  }

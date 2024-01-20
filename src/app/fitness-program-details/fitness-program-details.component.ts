@@ -28,7 +28,9 @@ export class FitnessProgramDetailsComponent {
   constructor(private ar: ActivatedRoute, private FitnessProgramService: FitnessProgramServiceService, private fb: FormBuilder,
     private imageService: ImageService, private snackBar: CustomSnackBarService, private _sanitizer: DomSanitizer, private jwtService: TokenService) {
     //this.youtube = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtubeBase);
-    this.clientId = this.jwtService.getUser().id;
+    if (this.jwtService.isLoggin()) {
+      this.clientId = this.jwtService.getUser().id;
+    }
     this.ar.params.subscribe(params => {
       this.id = params['id'];
       this.FitnessProgramService.findById(this.id).subscribe({
@@ -37,15 +39,17 @@ export class FitnessProgramDetailsComponent {
           if (data.location == 'Online') {
             this.youtube = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtubeBase + data.linkAddress);
           }
-          this.FitnessProgramService.isParticipating(this.clientId, this.id).subscribe({
-            next: (data) => { this.isParticipating = data; }, error: () => {
-              this.snackBar.openSnackBar(
-                'Error communicating with the server',
-                'close',
-                false
-              );
-            }
-          });
+          if (this.jwtService.isLoggin()) {
+            this.FitnessProgramService.isParticipating(this.clientId, this.id).subscribe({
+              next: (data) => { this.isParticipating = data; }, error: () => {
+                this.snackBar.openSnackBar(
+                  'Error communicating with the server',
+                  'close',
+                  false
+                );
+              }
+            });
+          }
           this.FitnessProgramService.getCommentsForFitnessProgram(this.id).subscribe({
             next: (res) => { this.comments = res }, error: () => {
               this.snackBar.openSnackBar(

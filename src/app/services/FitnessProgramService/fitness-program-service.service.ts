@@ -33,4 +33,8 @@ export class FitnessProgramServiceService {
   public getCommentsForFitnessProgram(id: any) {
     return this.http.get(config.API_URL + `/fitness-programs/${id}/comments`);
   }
+
+  public findAllByFilters(page: any, size: any, request: any): Observable<any> {
+    return this.http.post(config.API_URL + `/fitness-programs/filters?page=${page}&size=${size}`, request);
+  }
 }
