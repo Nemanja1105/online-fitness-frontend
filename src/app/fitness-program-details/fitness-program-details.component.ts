@@ -80,7 +80,7 @@ export class FitnessProgramDetailsComponent {
   showImageById(item: any) {
     if (item?.sender?.profileImageId)
       return this.imageService.downloadImage(item?.sender?.profileImageId);
-    else return '../../assets/victor-freitas-WvDYdXDzkhs-unsplash.jpg';
+    else return '../../assets/profileIcon.png';
   }
 
   onBlur(control: any) {

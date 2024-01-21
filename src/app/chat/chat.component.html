@@ -9,7 +9,8 @@
 <div class="container mt-3">
     <div class="row">
         <div class="d-flex justify-content-end p-0">
-            <button data-bs-toggle="collapse" href="#newMessage" class="btn btn-primary textImageCenter fw-semibold">New
+            <button matTooltip="Send new message" data-bs-toggle="collapse" href="#newMessage"
+                class="btn btn-primary textImageCenter fw-semibold">New
                 message <img src="../../assets/messageIcon.png" style="width: 24px; height: 24px;" /></button>
         </div>
         <div class="collapse mt-2 p-0" id="newMessage">
@@ -47,14 +48,14 @@
                         @if(form.controls['message'].invalid && (form.controls['message'].dirty ||
                         form.controls['message'].touched)){
                         <div class="text-danger">
-                            Comment is required!
+                            Message text is required!
                         </div>
                         }
 
                     </div>
                     <div class="d-flex justify-content-center mt-2">
-                        <button class="btn btn-success fw-semibold textImageCenter " [disabled]="form.invalid"
-                            (click)="sendMessage()">Send
+                        <button matTooltip="Send message" class="btn btn-success fw-semibold textImageCenter "
+                            [disabled]="form.invalid" (click)="sendMessage()">Send
                             message<img src="../../assets/sendMessageIcon.jpeg" /></button>
                     </div>
                 </form>
@@ -64,32 +65,34 @@
     </div>
     <div class=" row gy-3 mt-2">
         @for (item of messages; track $index) {
-        <div class="card rounded-4 border-primary border-3">
+        <div class="card rounded-4 border-primary border-3"
+            [ngClass]="{'border-primary':!item.seen && item.sender.id!==clientId}">
             <div class="card-body">
-
                 <div class="d-flex gap-3 align-items-center">
 
-                    <img src="../../assets/userIcon.png" style=" height: 40px; width: 40px;" alt="Avatar"
+                    <img [src]="showImageById(item)" style=" height: 40px; width: 40px;" alt="Avatar"
                         class="img-fluid rounded-circle">
-                    <div class="fs-5 fw-semibold">Marko Markovic</div>
+                    <div class="fs-5 fw-semibold"> @if(clientId==item.sender.id){
+                        {{item.receiver.name}} {{item.receiver.surname}}
+
+                        <span class="fw-bold">(to)</span>
+                        }
+                        @else {
+                        {{item.sender.name}} {{item.sender.surname}}
+                        <span class="fw-bold">(from)</span>
+                        }
+
+                    </div>
                     <div class="text-secondary fw-semibold">
-                        {{getFormattedTime('2024-01-16T09:00:00.594Z')}}</div>
+                        {{getFormattedTime(item.createdAt)}}</div>
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
                     <div id="message" class="fs-6 mt-1 textOverflow w-50"
                         [ngClass]="{'textOverflowU':collapses[$index]}">
-                        Curabitur sit amet accumsan dui.
-                        Etiam ornare
-                        interdum tempor. Duis
-                        non dui eros.
-                        Quisque interdum sem ut eros iaculis, suscipit pulvinar orci efficitur. Integer vehicula
-                        nisl ut
-                        odio accumsan, rhoncus pharetra dui interdum. Aliquam erat volutpat. Sed semper elit at
-                        tempus
-                        fringilla. Phasellus interdum lobortis orci, ac venenatis orci tempor interdum.</div>
+                        {{item.message}}</div>
                     <div>
-                        <button class="btn btn-outline-primary fw-semibold textImageCenter"
-                            (click)="onCollapse($index)">
+                        <button matTooltip="Mark as read" class="btn btn-outline-primary fw-semibold textImageCenter"
+                            (click)="onCollapse($index,item)">
                             Read
                             <img src="../../assets/downIcon.png" style="width: 24px; height: 24px;" />
                         </button>
@@ -102,8 +105,9 @@
     </div>
     <div class="row mt-4 d-flex justify-content-end">
         <div class="col-md-6">
-            <mat-paginator class="card rounded-4 fs-6" [length]="lenght" [showFirstLastButtons]="true"
-                [pageSize]="pageSize" [pageIndex]="pageIndex" [pageSizeOptions]="[5,10,15]" aria-label=" Select page">
+            <mat-paginator class="card rounded-4 fs-6" [length]="lenght" (page)="onPageChange($event)"
+                [showFirstLastButtons]="true" [pageSize]="pageSize" [pageIndex]="pageIndex"
+                [pageSizeOptions]="[5,10,15]" aria-label=" Select page">
             </mat-paginator>
         </div>
     </div>

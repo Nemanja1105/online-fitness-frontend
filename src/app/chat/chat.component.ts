@@ -7,11 +7,13 @@ import { ClientService } from '../services/Client/client.service';
 import { CustomSnackBarService } from '../services/CustomSnackBar/custom-snack-bar.service';
 import { TokenService } from '../services/TokenService/token-service.service';
 import { ChatService } from '../services/ChatService/chat.service';
+import { ImageService } from '../services/Image/image.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [NgClass, MatPaginatorModule, ReactiveFormsModule],
+  imports: [NgClass, MatPaginatorModule, ReactiveFormsModule, MatTooltipModule],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css'
 })
@@ -20,7 +22,7 @@ export class ChatComponent {
   lenght = 100;
   pageSize = 10;
   pageIndex = 0;
-  messages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  messages: any = [];
   collapses: any = [];
   clients: any = [];
   clientId: any = null;
@@ -28,11 +30,11 @@ export class ChatComponent {
   form = this.fb.group({ client: ['default' as any, notEqualToValidator('default')], message: ['', Validators.required] });
 
   constructor(private fb: FormBuilder, private clientService: ClientService, private snackBar: CustomSnackBarService,
-    private jwtService: TokenService, private chatService: ChatService) {
+    private jwtService: TokenService, private chatService: ChatService, private imageService: ImageService) {
     if (this.jwtService.isLoggin()) {
       this.clientId = this.jwtService.getUser().id;
     }
-    this.collapses = this.messages.map(() => false);
+
     this.clientService.findAll().subscribe({
       next: (data) => { this.clients = data.filter((el: any) => el.id !== this.clientId) }, error: () => {
         this.snackBar.openSnackBar(
@@ -42,10 +44,34 @@ export class ChatComponent {
         );
       }
     })
+    this.findAllMessageForCLient();
+
   }
 
   onBlur(control: any) {
     control.markAsTouched();
+  }
+  findAllMessageForCLient() {
+    this.chatService.getClientMessage(this.clientId, this.pageIndex, this.pageSize).subscribe({
+      next: (data) => {
+        this.lenght = data.totalElements;
+        this.messages = data.content;
+        this.collapses = data.content.map(() => false);
+
+      }, error: () => {
+        this.snackBar.openSnackBar(
+          'Error communicating with the server',
+          'close',
+          false
+        );
+      }
+    })
+  }
+
+  onPageChange(event: any) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.findAllMessageForCLient();
   }
 
 
@@ -72,8 +98,34 @@ export class ChatComponent {
     }
   };
 
-  onCollapse(index: any) {
+  onCollapse(index: any, message: any) {
     this.collapses[index] = !this.collapses[index];
+    if (!message.seen && message.receiver.id === this.clientId) {
+      this.chatService.markAsRead(message.id).subscribe({
+        next: () => {
+          message.seen = true;
+        }, error: () => {
+          this.snackBar.openSnackBar(
+            'Error communicating with the server',
+            'close',
+            false
+          );
+        }
+      })
+    }
+  }
+
+  showImageById(item: any) {
+    if (this.clientId !== item.sender.id) {
+      if (item?.sender?.profileImageId)
+        return this.imageService.downloadImage(item?.sender?.profileImageId);
+      else return '../../assets/profileIcon.png';
+    }
+    else {
+      if (item?.receiver?.profileImageId)
+        return this.imageService.downloadImage(item?.receiver?.profileImageId);
+      else return '../../assets/profileIcon.png';
+    }
   }
 
   sendMessage() {
@@ -81,7 +133,7 @@ export class ChatComponent {
     let obj = { message: tmp.message, sender: this.clientId, receiver: tmp.client.id };
     this.chatService.sendMessage(obj).subscribe({
       next: (data) => {
-        console.log(data);
+        this.messages.unshift(data);
         this.form.reset();
         this.snackBar.openSnackBar(
           'Message successfully send',
