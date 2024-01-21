@@ -1,0 +1,75 @@
+<div class="p-3">
+    <div class=" d-flex justify-content-center align-items-center gap-2">
+        <span class="fw-semibold fs-3">Add activity</span>
+        <img src="../../../assets/activityLogoIcon.png" style="width: 24px; height: 24px;" />
+
+    </div>
+    <hr class="m-0" />
+    <div>
+        <form [formGroup]="form">
+            <div>
+                <label for="nameLabel" class="fw-semibold">Name</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="addon-wrapping"><img src="../../assets/nameIcon.png" /></span>
+                    <input [formControl]="name" type="text" class="form-control " id="nameLabel"
+                        placeholder="Enter action name" name="name" (blur)="onBlur(name)"
+                        [ngClass]="{ 'is-invalid': (name.dirty || name.touched) && name.invalid }" />
+                </div>
+                @if(name.invalid && (name.dirty || name.touched)){
+                <div class="text-danger">
+                    Name is required!
+                </div>
+                }
+            </div>
+            <div class="mt-2">
+                <label for="setInput" class="fw-semibold">Sets</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="addon-wrapping"><img src="../../assets/setIcon.png" /></span>
+                    <input [formControl]="set" type="number" min="0" class="form-control " id="setInput"
+                        placeholder="Enter number of sets" name="sets" (blur)="onBlur(set)"
+                        [ngClass]="{ 'is-invalid': (set.dirty || set.touched) && set.invalid }" />
+                </div>
+                @if(set.invalid && (set.dirty || set.touched)){
+                <div class="text-danger">
+                    Sets is required!
+                </div>
+                }
+            </div>
+            <div class="mt-2">
+                <label for="repsInput" class="fw-semibold">Reps</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="addon-wrapping"><img src="../../assets/repIcon.png" /></span>
+                    <input [formControl]="rep" type="number" min="0" class="form-control " id="repsInput"
+                        placeholder="Enter number of reps" name="reps" (blur)="onBlur(rep)"
+                        [ngClass]="{ 'is-invalid': (rep.dirty || rep.touched) && rep.invalid }" />
+                </div>
+                @if(rep.invalid && (rep.dirty || rep.touched)){
+                <div class="text-danger">
+                    Reps is required!
+                </div>
+                }
+            </div>
+            <div class="mt-2">
+                <label for="weightInput" class="fw-semibold">Weight</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="addon-wrapping"><img src="../../assets/weightIcon.png" /></span>
+                    <input [formControl]="weight" type="number" min="0" class="form-control " id="weightInput"
+                        placeholder="Enter number of reps" name="weight" (blur)="onBlur(weight)"
+                        [ngClass]="{ 'is-invalid': (weight.dirty || weight.touched) && weight.invalid }" />
+                </div>
+                @if(weight.invalid && (weight.dirty || weight.touched)){
+                <div class="text-danger">
+                    Weight is required!
+                </div>
+                }
+            </div>
+        </form>
+    </div>
+    <hr class="mb-0" />
+    <div mat-dialog-actions class="d-flex justify-content-center gap-3">
+        <button class="btn btn-success fw-semibold" style="width: 90px;" [disabled]="form.invalid"
+            (click)="onSubmit()">Add</button>
+        <button class="btn btn-danger fw-semibold" mat-dialog-close style="width: 90px;">Cancel</button>
+
+    </div>
+</div>

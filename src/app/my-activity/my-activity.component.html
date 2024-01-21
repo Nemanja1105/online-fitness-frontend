@@ -1,0 +1,45 @@
+<div class="textImageCenter justify-content-center w-100 ">
+    <span class="fw-bold font-italic m-0 title">My activities</span>
+    <img src="../../assets/activityLogoIcon.png" style="width:48px; height: 48px;">
+</div>
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="card p-0">
+            <div class="card-header d-flex justify-content-between align-items-center text-light fw-semibold fs-4 p-3"
+                style="background-color: #1e90ff">
+                <div>
+                    Activity history
+                </div>
+                <button matTooltip="Add new activity" class="btn btn-success textImageCenter fw-semibold "
+                    (click)="addNewActivity()">Add
+                    activity<img src="../../assets/addButton.jpeg" /></button>
+            </div>
+            <div class="card-body p-0 activityMaxHeight">
+                <ul class="list-group list-group-flush">
+                    @for (item of activities; track $index) {
+                    <li class="list-group-item d-flex flex-column flex-md-row justify-content-between gap-2 ">
+                        <div class="d-flex align-items-center gap-2 gap-md-4 flex-column flex-md-row">
+
+
+                            <span class="fw-semibold fs-5 ">{{item.name}}</span>
+                            <div class="d-flex gap-2 align-items-center ">
+                                <span class="badge text-bg-warning fs-6 p-2 fw-semibold">Sets:{{item.sets}}</span>
+                                <span class="badge text-bg-danger p-2 fs-6 fw-semibold">Reps:{{item.reps}}</span>
+                                <span class="badge text-bg-success p-2 fs-6 fw-semibold">Weight:{{item.weight}}</span>
+                            </div>
+
+                        </div>
+                        <div class="d-flex gap-2 flex-column flex-md-row align-items-center">
+                            <span class="fw-semibold">{{item.createdAt|date}}</span>
+                            <a matTooltip="Delete activity" (click)="deleteActivity(item)"><img
+                                    src="../../assets/deleteIcon.jpeg" /></a>
+                        </div>
+                    </li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

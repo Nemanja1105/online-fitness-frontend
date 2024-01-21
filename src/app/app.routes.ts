@@ -15,6 +15,7 @@ import { FitnessProgramDetailsComponent } from './fitness-program-details/fitnes
 import { SubscribeComponent } from './subscribe/subscribe.component';
 import { ChatComponent } from './chat/chat.component';
 import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
+import { MyActivityComponent } from './my-activity/my-activity.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [loginGuard] },
@@ -63,6 +64,11 @@ export const routes: Routes = [
       {
         path: 'subscriptions',
         component: SubscriptionsComponent,
+        canActivate: [mainGuard]
+      },
+      {
+        path: 'my-activity',
+        component: MyActivityComponent,
         canActivate: [mainGuard]
       },
       { path: '', redirectTo: '/programs', pathMatch: 'full' },
