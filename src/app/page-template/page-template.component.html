@@ -47,6 +47,12 @@
                                     src="../../assets/chatIcon.png" />Chat</a>
                         </li>
                         }
+                        @if(isLoggin){
+                        <li class="nav-item mx-2">
+                            <a class="nav-link centerIconText" routerLink="/subscriptions"
+                                routerLinkActive="active"><img src="../../assets/subsIcon.png" />Subscriptions</a>
+                        </li>
+                        }
 
                     </ul>
                     <div id="navRight"
