@@ -8,6 +8,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { TokenService } from '../services/TokenService/token-service.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { AskAdvisorDialogComponent } from '../components/ask-advisor-dialog/ask-advisor-dialog.component';
 
 @Component({
   selector: 'app-fitness-program-details',
@@ -26,7 +28,8 @@ export class FitnessProgramDetailsComponent {
   isParticipating: any = true;
   comment = new FormControl('', Validators.required);
   constructor(private ar: ActivatedRoute, private FitnessProgramService: FitnessProgramServiceService, private fb: FormBuilder,
-    private imageService: ImageService, private snackBar: CustomSnackBarService, private _sanitizer: DomSanitizer, private jwtService: TokenService) {
+    private imageService: ImageService, private snackBar: CustomSnackBarService, private _sanitizer: DomSanitizer, private jwtService: TokenService,
+    public dialog: MatDialog) {
     //this.youtube = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtubeBase);
     if (this.jwtService.isLoggin()) {
       this.clientId = this.jwtService.getUser().id;
@@ -81,6 +84,10 @@ export class FitnessProgramDetailsComponent {
     if (item?.sender?.profileImageId)
       return this.imageService.downloadImage(item?.sender?.profileImageId);
     else return '../../assets/profileIcon.png';
+  }
+
+  openDialog(program: any) {
+    this.dialog.open(AskAdvisorDialogComponent, { width: '450px', data: this.id });
   }
 
   onBlur(control: any) {

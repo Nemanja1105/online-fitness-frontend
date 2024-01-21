@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card p-0 rounded-4">
-                <img [src]="showImage()" class="card-img-top central-image img-fluid" alt="..." >
+                <img [src]="showImage()" class="card-img-top central-image img-fluid" alt="...">
                 <div class="card-body p-3 p-md-4">
                     <div class="card-title m-0">
                         <div class="d-flex flex-column flex-sm-row  justify-content-between align-items-center">
@@ -16,11 +16,18 @@
                             
                             }">{{program?.difficulty}}</span>
                             </div>
-                            @if( clientId && !isParticipating && program?.client?.id!==clientId){
-                            <a [routerLink]="['/subscribe',program?.id]" matTooltip="Participate to fitness program"
-                                class="btn btn-outline-primary fw-semibold fs-5 textImageCenter">Participation
-                                <img src="../../assets/subscribeIcon.png" /></a>
-                            }
+                            <div class="d-flex flex-column flex-md-row mt-2 mt-md-0 align-items-center gap-2">
+                                @if( clientId && !isParticipating && program?.client?.id!==clientId){
+                                <a [routerLink]="['/subscribe',program?.id]" matTooltip="Participate to fitness program"
+                                    class="btn btn-outline-primary fw-semibold fs-5 textImageCenter">Participation
+                                    <img src="../../assets/subscribeIcon.png" /></a>
+                                }
+                                @if(clientId && program?.client?.id!==clientId ){
+                                <a matTooltip="Send question to advisor" (click)="openDialog(program)"
+                                    class="btn btn-outline-warning fw-semibold fs-5 textImageCenter">Ask advisor<img
+                                        src="../../assets/askIcon.png" /></a>
+                                }
+                            </div>
                         </div>
                     </div>
                     <div class="fw-semibold fs-5 text-secondary textImageCenter gap-1">
