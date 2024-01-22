@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AddActivityDialogComponent } from '../components/add-activity-dialog/add-activity-dialog.component';
@@ -7,20 +7,30 @@ import { CustomSnackBarService } from '../services/CustomSnackBar/custom-snack-b
 import { TokenService } from '../services/TokenService/token-service.service';
 import { DatePipe } from '@angular/common';
 import { DeleteDialogComponent } from '../components/delete-dialog/delete-dialog.component';
+import { AreaChartComponent } from './components/area-chart/area-chart.component';
+import { AddBodyweightDialogComponent } from '../components/add-bodyweight-dialog/add-bodyweight-dialog.component';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { BodyWeightService } from '../services/BodyWeightService/body-weight.service';
 
 @Component({
   selector: 'app-my-activity',
   standalone: true,
-  imports: [MatTooltipModule, DatePipe],
+  imports: [MatTooltipModule, DatePipe, AreaChartComponent, ReactiveFormsModule],
   templateUrl: './my-activity.component.html',
   styleUrl: './my-activity.component.css'
 })
 export class MyActivityComponent {
-  activities: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  activities: any = [];
   clientId: any = null;
+  statistics: any = null;
+  startDate: any = new FormControl(null);
+  endDate: any = new FormControl(null);
+  downloadUrl: any = "";
 
-  constructor(public dialog: MatDialog, private activityService: ActivityService, private snackBar: CustomSnackBarService, private jwtService: TokenService) {
+  constructor(public dialog: MatDialog, private activityService: ActivityService, private snackBar: CustomSnackBarService,
+    private jwtService: TokenService, private bodyWeightService: BodyWeightService) {
     this.clientId = this.jwtService.getUser().id;
+    this.downloadUrl = bodyWeightService.downloadPdf(this.clientId);
     this.activityService.findAllActivitiesForClient(this.clientId).subscribe({
       next: (data) => { this.activities = data }, error: () => {
         this.snackBar.openSnackBar(
@@ -30,7 +40,11 @@ export class MyActivityComponent {
         );
       }
     })
+    setTimeout(() => this.loadBodyWeightStatistic(), 1000);
+    //this.loadBodyWeightStatistic();
   }
+
+
 
   addNewActivity() {
     let dialog = this.dialog.open(AddActivityDialogComponent, { width: '400px' });
@@ -63,5 +77,29 @@ export class MyActivityComponent {
         })
       }
     });
+  }
+
+  addNewBodyweight() {
+    let dialogRef = this.dialog.open(AddBodyweightDialogComponent, { width: '400px' });
+  }
+
+  loadBodyWeightStatistic() {
+    let obj: any = {};
+    if (this.startDate.value)
+      obj['startDate'] = this.startDate.value;
+    if (this.endDate.value)
+      obj['endDate'] = this.endDate.value;
+    this.bodyWeightService.getStatisticsForClient(this.clientId, obj).subscribe({
+      next: (data) => {
+        this.statistics = data;
+      }, error: () => {
+        this.snackBar.openSnackBar(
+          'Error communicating with the server',
+          'close',
+          false
+        );
+      }
+    })
+
   }
 }

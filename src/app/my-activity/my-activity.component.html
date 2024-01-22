@@ -4,7 +4,14 @@
 </div>
 
 <div class="container mt-3">
-    <div class="row">
+    <div class="row ">
+        <div class="d-flex justify-content-end">
+            <a matTooltip="Download client activity report"
+                class="btn btn-outline-primary fw-semibold fs-5 textImageCenter" target="_blank"
+                [href]="downloadUrl">Download PDF<img src="../../assets/pdfIcon.png" /></a>
+        </div>
+    </div>
+    <div class="row mt-2">
         <div class="card p-0">
             <div class="card-header d-flex justify-content-between align-items-center text-light fw-semibold fs-4 p-3"
                 style="background-color: #1e90ff">
@@ -39,6 +46,35 @@
                     }
 
                 </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="card p-0">
+            <div class="card-header d-flex justify-content-between align-items-center text-light fw-semibold fs-4 p-3"
+                style="background-color: #1e90ff">
+                <div>
+                    Body weight history
+                </div>
+                <button matTooltip="Add new measurement" class="btn btn-success textImageCenter fw-semibold "
+                    (click)="addNewBodyweight()">Add
+                    weight<img src="../../assets/addButton.jpeg" /></button>
+            </div>
+            <div class="card-body p-0 ">
+                <div class="d-flex justify-content-center justify-content-md-end gap-3 mt-2 mb-2">
+                    <div>
+                        <label for="startDate" class="fw-semibold">Stard date</label>
+                        <input [formControl]="startDate" type="date" class="form-control " id="startDate"
+                            (change)="loadBodyWeightStatistic()" name="startDate" />
+                    </div>
+                    <div>
+                        <label for="endDate" class="fw-semibold">End date</label>
+                        <input [formControl]="endDate" type="date" class="form-control " id="endDate" name="endDate"
+                            (change)="loadBodyWeightStatistic()" />
+                    </div>
+                </div>
+                <hr class="mt-1" />
+                <app-area-chart [statistics]="statistics"></app-area-chart>
             </div>
         </div>
     </div>

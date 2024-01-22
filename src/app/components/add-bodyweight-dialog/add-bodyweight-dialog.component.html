@@ -1,0 +1,49 @@
+<div class="p-3">
+    <div class=" d-flex justify-content-center align-items-center gap-2">
+        <span class="fw-semibold fs-3">Add bodyweight</span>
+        <img src="../../../assets/activityLogoIcon.png" style="width: 24px; height: 24px;" />
+
+    </div>
+    <hr class="mt-0" />
+    <div>
+        <form [formGroup]="form">
+            <div>
+                <label for="dateInput" class="fw-semibold">Date of measurement</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="addon-wrapping"><img src="../../../assets/dateIcon.png" /></span>
+                    <input [formControl]="date" type="date" class="form-control " id="dateInput"
+                        placeholder="Enter date of measure" name="dateInput" (blur)="onBlur(date)"
+                        [ngClass]="{ 'is-invalid': (date.dirty || date.touched) && date.invalid }" />
+                </div>
+                @if(date.invalid && (date.dirty || date.touched)){
+                <div class="text-danger">
+                    Date is required!
+                </div>
+                }
+            </div>
+            <div class="mt-2">
+                <label for="weightInput" class="fw-semibold">Weight</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="addon-wrapping"><img
+                            src="../../../assets/weightIcon.png" /></span>
+                    <input [formControl]="weight" type="number" min="0" class="form-control " id="weightInput"
+                        placeholder="Enter number of sets" name="weight" (blur)="onBlur(weight)"
+                        [ngClass]="{ 'is-invalid': (weight.dirty || weight.touched) && weight.invalid }" />
+                </div>
+                @if(weight.invalid && (weight.dirty || weight.touched)){
+                <div class="text-danger">
+                    Weight is required!
+                </div>
+                }
+            </div>
+
+        </form>
+    </div>
+    <hr class="mb-0" />
+    <div mat-dialog-actions class="d-flex justify-content-center gap-3 mt-2">
+        <button class="btn btn-success fw-semibold" style="width: 90px;" [disabled]="form.invalid"
+            (click)="onSubmit()">Add</button>
+        <button class="btn btn-danger fw-semibold" mat-dialog-close style="width: 90px;">Cancel</button>
+
+    </div>
+</div>
