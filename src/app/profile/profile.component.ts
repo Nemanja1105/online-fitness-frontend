@@ -40,7 +40,7 @@ export class ProfileComponent implements OnInit {
     private clientService: ClientService,
     private snackBar: CustomSnackBarService,
     private imageService: ImageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.initForm();
