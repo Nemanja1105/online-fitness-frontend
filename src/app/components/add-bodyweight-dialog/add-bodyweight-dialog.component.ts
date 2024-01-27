@@ -18,7 +18,7 @@ import { CustomSnackBarService } from '../../services/CustomSnackBar/custom-snac
 @Component({
   selector: 'app-add-bodyweight-dialog',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass],
+  imports: [ReactiveFormsModule, NgClass, MatDialogActions, MatDialogClose],
   templateUrl: './add-bodyweight-dialog.component.html',
   styleUrl: './add-bodyweight-dialog.component.css'
 })

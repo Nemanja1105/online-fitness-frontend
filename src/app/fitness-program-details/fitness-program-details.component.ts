@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FitnessProgramServiceService } from '../services/FitnessProgramService/fitness-program-service.service';
 import { CustomSnackBarService } from '../services/CustomSnackBar/custom-snack-bar.service';
 import { NgClass } from '@angular/common';
@@ -29,7 +29,7 @@ export class FitnessProgramDetailsComponent {
   comment = new FormControl('', Validators.required);
   constructor(private ar: ActivatedRoute, private FitnessProgramService: FitnessProgramServiceService, private fb: FormBuilder,
     private imageService: ImageService, private snackBar: CustomSnackBarService, private _sanitizer: DomSanitizer, private jwtService: TokenService,
-    public dialog: MatDialog) {
+    public dialog: MatDialog, private router: Router) {
     //this.youtube = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtubeBase);
     if (this.jwtService.isLoggin()) {
       this.clientId = this.jwtService.getUser().id;
@@ -63,11 +63,12 @@ export class FitnessProgramDetailsComponent {
             }
           })
         }, error: () => {
-          this.snackBar.openSnackBar(
-            'Error communicating with the server',
-            'close',
-            false
-          );
+          router.navigate(['/'])
+          /* this.snackBar.openSnackBar(
+             'Error communicating with the server',
+             'close',
+             false
+           );*/
         }
       });
 

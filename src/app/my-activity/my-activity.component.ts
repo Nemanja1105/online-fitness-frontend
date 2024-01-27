@@ -81,6 +81,7 @@ export class MyActivityComponent {
 
   addNewBodyweight() {
     let dialogRef = this.dialog.open(AddBodyweightDialogComponent, { width: '400px' });
+    dialogRef.afterClosed().subscribe((result) => { if (result !== null) this.loadBodyWeightStatistic() })
   }
 
   loadBodyWeightStatistic() {

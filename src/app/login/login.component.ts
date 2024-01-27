@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     private snackBar: CustomSnackBarService,
     private tokenService: TokenService,
     private router: Router
-  ) {}
+  ) { }
   username = new FormControl('', [
     Validators.required,
     Validators.maxLength(50),
@@ -68,13 +68,13 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['']);
         },
         error: (error) => {
-          if (error.status === 401) {
+          if (error.status === 401 || error.status == 403) {
             this.snackBar.openSnackBar(
               'Incorrect username or password. Please try again.',
               'close',
               false
             );
-          } else if (error.status === 403) {
+          } else if (error.status === 404) {
             this.snackBar.openSnackBar(
               'The account is blocked. Contact the administrator.',
               'close',
