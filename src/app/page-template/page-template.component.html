@@ -67,7 +67,7 @@
                         <a routerLink="/profile" routerLinkActive="active"><img matTooltip="My profile"
                                 [src]="showImage()" class="rounded-circle" style="width: 38px; height: 38px;"
                                 alt="Avatar" /></a>}
-                        <button matTooltip="Login" (click)="logClick()"
+                        <button [matTooltip]="isLoggin?'logout':'login'" (click)="logClick()"
                             class="btn btn-warning fw-semibold centerIconText">
                             @if(!isLoggin)
                             {

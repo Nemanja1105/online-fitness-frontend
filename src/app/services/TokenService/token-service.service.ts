@@ -6,10 +6,12 @@ import { jwtDecode } from 'jwt-decode';
   providedIn: 'root',
 })
 export class TokenService {
-  constructor() {}
+  constructor() { }
 
   public logout() {
-    window.localStorage.clear();
+    //window.localStorage.clear();
+    window.localStorage.removeItem(config.JWT_KEY);
+    window.localStorage.removeItem(config.USER_KEY);
   }
 
   public storeJwt(jwtToken: string) {
